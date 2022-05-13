@@ -63,7 +63,8 @@
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+CREATE TABLE IF NOT EXISTS beans 
+  (name STRING, color STRING, grams FLOAT, delicious BOOLEAN)
 
 -- COMMAND ----------
 
@@ -107,7 +108,7 @@ INSERT INTO beans VALUES
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+SELECT * FROM beans
 
 -- COMMAND ----------
 
@@ -120,7 +121,8 @@ INSERT INTO beans VALUES
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+INSERT INTO beans
+VALUES
 ('pinto', 'brown', 1.5, true),
 ('green', 'green', 178.3, true),
 ('beanbag chair', 'white', 40000, false)
@@ -171,7 +173,9 @@ WHERE name = "jelly"
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+UPDATE beans
+SET grams = 1500
+WHERE name = "pinto"
 
 -- COMMAND ----------
 
@@ -205,7 +209,8 @@ WHERE name = "jelly"
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+DELETE FROM beans 
+WHERE delicious = False
 
 -- COMMAND ----------
 
@@ -257,7 +262,13 @@ SELECT * FROM new_beans
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+MERGE INTO beans a
+USING new_beans b
+ON a.name=b.name AND a.color = b.color
+WHEN MATCHED THEN
+  UPDATE SET grams = a.grams + b.grams
+WHEN NOT MATCHED AND b.delicious = true THEN
+  INSERT *
 
 -- COMMAND ----------
 
@@ -296,7 +307,7 @@ SELECT * FROM new_beans
 -- COMMAND ----------
 
 -- TODO
-<FILL-IN>
+DROP TABLE beans
 
 -- COMMAND ----------
 
@@ -342,3 +353,6 @@ SELECT * FROM new_beans
 -- MAGIC Apache, Apache Spark, Spark and the Spark logo are trademarks of the <a href="https://www.apache.org/">Apache Software Foundation</a>.<br/>
 -- MAGIC <br/>
 -- MAGIC <a href="https://databricks.com/privacy-policy">Privacy Policy</a> | <a href="https://databricks.com/terms-of-use">Terms of Use</a> | <a href="https://help.databricks.com/">Support</a>
+
+-- COMMAND ----------
+
